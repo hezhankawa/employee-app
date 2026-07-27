@@ -14,9 +14,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetches full commit history for secret scanning
+          fetch-depth: 0
 
-      # Step 2: Bonus Challenge - Scan for Secrets using Gitleaks
+      # Step 2: Secret Scanning (Bonus Challenge)
       - name: Scan repository for secrets
         uses: gitleaks/gitleaks-action@v2
         env:
@@ -37,8 +37,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./employee-app
+          file: ./employee-app/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/employee-app:latest
