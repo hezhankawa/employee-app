@@ -14,9 +14,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Fetches full commit history for secret scanning
 
-      # Step 2: Secret Scanning (Bonus Challenge)
+      # Step 2: Bonus Challenge - Scan for Secrets using Gitleaks
       - name: Scan repository for secrets
         uses: gitleaks/gitleaks-action@v2
         env:
@@ -26,8 +26,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_HEZHANKAWA
-          }}
+          username: ${{ secrets.DOCKERHUB_HEZHANKAWA }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Step 4: Set up Docker Buildx
@@ -38,8 +37,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./employee-app
-          file: ./employee-app/Dockerfile
+          context: .
+          file: ./Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/employee-app:latest
