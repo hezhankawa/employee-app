@@ -1,11 +1,17 @@
-name: Example
+name: Create File
+
 on:
   push:
     branches:
       - main
+
 jobs:
   message:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print message
-        run: echo "Hello, world!"
+      - name: Create file
+        run: echo "This file was created by GitHub Actions" > message.txt
+
+      - name: Show file
+        run: cat message.txt
